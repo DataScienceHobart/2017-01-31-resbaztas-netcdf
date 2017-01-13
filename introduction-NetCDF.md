@@ -35,7 +35,17 @@ NetCDF automatically deals with
 * start with ncdump
 * then show bare minimum with Python, R, Matlab and show that they all utilize the engine behind ncdump to do stuff
 
-
+### R example:
+library(ncdf4)
+target_file <- "/path/to/file"
+connection_to_nc <- nc_open(target_file)
+  extracted_data <- ncvar_get(connection_to_nc, "variable_name")
+  extracted_first_dimension <- ncvar_get(connection_to_nc, "first_dimenison_name") 
+  extracted_second_dimension <- ncvar_get(connection_to_nc, "second_dimenison_name") 
+  extracted_third_dimension <- ncvar_get(connection_to_nc, "third_dimenison_name") 
+nc_close(connection_to_nc)
+mean_of_each_layer <- apply(extracted_data,3,mean,na.rm=TRUE)
+image(x=extracted_first_dimension, y=extracted_second_dimension, z=extracted_data[,,1])
 
 
 ## Scope and generality of what NetCDF can deal with is HUUUUGE
