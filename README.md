@@ -8,8 +8,7 @@ Check out the introduction document, provide your input directly by any of the f
 
 * editing it in place 
 * submit Pull Requests
-* use the 
-* This is Toms Edit #with a comment
+* use the [Issues tab](https://github.com/DataScienceHobart/2017-01-31-resbaztas-netcdf/issues)
 
 See [introduction-NetCDF.md](introduction-NetCDF.md). 
 
