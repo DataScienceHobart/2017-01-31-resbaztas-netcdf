@@ -6,9 +6,10 @@ This material will be used to give an very introductory overview to **NetCDF** t
 
 Check out the introduction document, provide your input directly by any of the following ways: 
 
-* editing it in place 
-* submit Pull Requests
-* use the [Issues tab](https://github.com/DataScienceHobart/2017-01-31-resbaztas-netcdf/issues)
+* clone the repo and submit Pull Requests
+* use the [Issues tab](https://github.com/DataScienceHobart/2017-01-31-resbaztas-netcdf/issues) to detail your changes
+
+Or just ping me with an email :)
 
 See [introduction-NetCDF.md](introduction-NetCDF.md). 
 
