@@ -36,6 +36,8 @@ NetCDF automatically deals with
 * then show bare minimum with Python, R, Matlab and show that they all utilize the engine behind ncdump to do stuff
 
 ### R example:
+
+```R
 library(ncdf4)
 target_file <- "/path/to/file"
 connection_to_nc <- nc_open(target_file)
@@ -46,7 +48,29 @@ connection_to_nc <- nc_open(target_file)
 nc_close(connection_to_nc)
 mean_of_each_layer <- apply(extracted_data,3,mean,na.rm=TRUE)
 image(x=extracted_first_dimension, y=extracted_second_dimension, z=extracted_data[,,1])
+```
 
+### Python example
+
+```python
+import ...
+```
+
+### Matlab examples
+
+
+```matlab
+ncload myfile.nc
+who
+```
+
+
+### Shell examples?
+
+
+```bash
+ncdump -h myfile.nc
+```
 
 ## Scope and generality of what NetCDF can deal with is HUUUUGE
 
