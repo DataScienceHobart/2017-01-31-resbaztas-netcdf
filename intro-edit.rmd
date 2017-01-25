@@ -1,0 +1,146 @@
+- a python example using netCDF4, also follow SC link (listed also in the file after nco/cdo) for more examples, other modules etc, although that’s probably too much
+- good summary of netcdf features on unidata website itself, integrate into list
+- Add some of the useful features of NCO/CDO
+
+## NetCDF general concepts
+
+* **Variables** this is the bulk data, stored in *arrays*
+* **Dimensions** these define the *shape* and *size* of the **variable**
+* **Attributes** these store *metadata* that give *meaning* to the **variables** and their **dimensions**
+
+### Don't read this out, open Panoply and describe it directly: 
+
+```
+A specific example could be a map of sea surface temperature, for the entire globe at 1-degree resolution. 
+
+* the variable is the 360x180x1 temperature values in a matrix/array
+* the dimensions are "longitude" (with length 360) and "latitude" (with length 180) and a single time step (we know when we measured the values)
+* the attributes store the extra details we need to find the values for each step in the dimensions, the units of the temperature measurement, the units of the dimension values, and **global** metadata about who measured it and how. 
+```
+
+Technical advanced features, see Unidata blog for tips and tricks
+
+NetCDF automatically deals with
+
+* different data types
+* memory handling, scaling up to large 
+* compact transmission (compression)
+* performance f
+* cross-platform, cross-language
+* Compression
+* Tiling (called chunking)
+* Full metadata
+* Scaleability
+* Web serving/ Partial access
+
+As an alternative netcdf features list you could use the one given by unidata
+or integrate yours with it:
+
+NetCDF data is:
+
+* Self-Describing. A netCDF file includes information about the data it contains.
+* Portable. A netCDF file can be accessed by computers with different ways of storing integers, characters, and floating-point numbers.
+* Scalable. A small subset of a large dataset may be accessed efficiently.
+* Appendable. Data may be appended to a properly structured netCDF file without copying the dataset or redefining its structure.
+* Sharable. One writer and multiple readers may simultaneously access the same netCDF file.
+* Archivable. Access to all earlier forms of netCDF data will be supported by current and future versions of the software.
+
+## Programming languages
+
+* start with ncdump
+* then show bare minimum with Python, R, Matlab and show that they all utilize the engine behind ncdump to do stuff
+* all programming languages use the same basic operations to read data from a netcdf file
+* open file in reading mode
+* print content (optional)
+* extract variable
+* extract dimension/s
+* do something with them ...
+* close file
+* generally file can be accessed in the same way if available online using the opendap protocol, using url instead of file locaiton on disk
+
+### R example:
+
+```R
+library(ncdf4)
+target_file <- "/path/to/file"
+connection_to_nc <- nc_open(target_file)
+  extracted_data <- ncvar_get(connection_to_nc, "variable_name")
+  extracted_first_dimension <- ncvar_get(connection_to_nc, "first_dimenison_name") 
+  extracted_second_dimension <- ncvar_get(connection_to_nc, "second_dimenison_name") 
+  extracted_third_dimension <- ncvar_get(connection_to_nc, "third_dimenison_name") 
+nc_close(connection_to_nc)
+mean_of_each_layer <- apply(extracted_data,3,mean,na.rm=TRUE)
+image(x=extracted_first_dimension, y=extracted_second_dimension, z=extracted_data[,,1])
+```
+
+### Python example
+
+```python
+from netCDF4 import Dataset
+nc = Dataset(âsomefile.ncâ,ârâ)   # open file in reading mode
+print(nc) # will show all the netcdf characteristic
+var = nc.variables['var']  # this will retrieve the entire variable including attributes as a netCDF4.variable object
+print(var) # will show all the variable characteristic
+values = nc.variables['var'][:]  # this will retrieve only the values as a numpy array
+nc.close()   # close file
+from netCDF4 import MFDataset
+nc = MFDataset(â/datasets/wind_195*.ncâ)  # open all the files matching the regex as one file concatanated along its unlimited dimension 
+```
+
+### Matlab examples
+
+
+```matlab
+ncload myfile.nc
+who
+```
+
+
+### Shell examples?
+
+
+```bash
+ncdump -h myfile.nc
+ncdump -sh myfile.nc  # will also show hidden attributes ie file format, chunking etc
+```
+
+## Scope and generality of what NetCDF can deal with is HUUUUGE
+
+It's all defined by the **CF Conventions** [link] etc. 
+
+This covers a big range of kinds of files and kinds of data. 
+
+* Terrestrial and marine remote sensing
+* non-spatial multi-dimensional, structured data
+* Model output
+* Multiple variables
+* Regular grids, curvilinear grids
+* Time series across files
+
+## Specific tools
+
+* ncdump -h
+* nco, cdo, ...
+*
+* NCO:
+* Concatenate files, ensemble averaging,
+* Lots of options, complex âkitchen-sinkâ operator
+* Right tool for modifying attributes (add, delete change)
+* extract variables, basic math
+*
+* CDO:
+*  Basic stats for each variable (min, mean, max) cdo infon FILE - Check for extremes
+* Modification
+* Masks, attributes
+* Arithmetic
+* Statistics
+* Correlations
+* Interpolation
+*
+* taken this from here https://scottwales.github.io/swc-climatedata/
+*
+* Python and the libs, Dr. Climate on the Python stack: https://drclimate.wordpress.com/2016/10/04/the-weatherclimate-python-stack/
+* R and ncdf4, raster
+* GDAL
+* Matlab
+
