@@ -53,7 +53,17 @@ image(x=extracted_first_dimension, y=extracted_second_dimension, z=extracted_dat
 ### Python example
 
 ```python
-import ...
+from netCDF4 import Dataset
+
+# Read dataset
+data = Dataset(data_file)
+
+print("The file contains the following variables:')
+print(data.variables.keys())
+
+data_variable = data.variables['name'][:, :, :]
+history_metadata = data.history
+
 ```
 
 ### Matlab examples
