@@ -1,18 +1,36 @@
-## NetCDF general concepts
+## NetCDF
 
-* **Variables** this is the bulk data, stored in *arrays*
+Network Common Data Form
+
+```
+NetCDF is a set of software libraries and self-describing, machine-independent data formats that support the creation, access, and sharing of array-oriented scientific data.
+```
+
+## The scope of NetCDF is large
+
+Very diverse range of data sources, organized with this file format. 
+
+* Terrestrial and marine remote sensing
+* Non-spatial multi-dimensional, structured data
+* Model output - physical ocean models, ecosystem models
+* Multiple variables - a few, or hundreds in one file
+* Time series across files
+* ...
+
+
+![][Unidata]
+
+
+[Unidata]: unidata.png "Unidata NetCDF"
+
+
+
+## Key components in NetCDF
+
+* **Variables** this is the bulk data, stored in *arrays* or *matrices*
 * **Dimensions** these define the *shape* and *size* of the **variable**
 * **Attributes** these store *metadata* that give *meaning* to the **variables** and their **dimensions**
 
-### Don't read this out, open Panoply and describe it directly: 
-
-```
-A specific example could be a map of sea surface temperature, for the entire globe at 1-degree resolution. 
-
-* the variable is the 360x180x1 temperature values in a matrix/array
-* the dimensions are "longitude" (with length 360) and "latitude" (with length 180) and a single time step (we know when we measured the values)
-* the attributes store the extra details we need to find the values for each step in the dimensions, the units of the temperature measurement, the units of the dimension values, and **global** metadata about who measured it and how. 
-```
 
 Technical advanced features, see Unidata blog for tips and tricks
 
@@ -32,8 +50,8 @@ NetCDF automatically deals with
 
 ## Programming languages
 
-* start with ncdump
-* then show bare minimum with Python, R, Matlab and show that they all utilize the engine behind ncdump to do stuff
+* start with the shell `ncdump -h filename.nc`
+
 
 ### R example:
 
@@ -82,18 +100,6 @@ who
 ncdump -h myfile.nc
 ```
 
-## Scope and generality of what NetCDF can deal with is HUUUUGE
-
-It's all defined by the **CF Conventions** [link] etc. 
-
-This covers a big range of kinds of files and kinds of data. 
-
-* Terrestrial and marine remote sensing
-* non-spatial multi-dimensional, structured data
-* Model output
-* Multiple variables
-* Regular grids, curvilinear grids
-* Time series across files
 
 ## Specific tools
 
@@ -103,4 +109,24 @@ This covers a big range of kinds of files and kinds of data.
 * R and ncdf4, raster
 * GDAL
 * Matlab
+
+
+
+### Don't read this out, open Panoply and describe it directly: 
+
+Get a file. 
+
+```R
+u <- "ftp://eclipse.ncdc.noaa.gov/pub/OI-daily-v2/NetCDF/2017/AVHRR/avhrr-only-v2.20170116.nc.gz"
+download.file(u, basename(u), mode = "wb")
+system(sprintf("gunzip --keep %s", basename(u)))
+```
+
+A specific example could be a map of sea surface temperature, for the entire globe at 1-degree resolution. 
+
+* the variable is the 360x180x1 temperature values in a matrix/array
+* the dimensions are "longitude" (with length 360) and "latitude" (with length 180) and a single time step (we know when we measured the values)
+* the attributes store the extra details we need to find the values for each step in the dimensions, the units of the temperature measurement, the units of the dimension values, and **global** metadata about who measured it and how. 
+```
+
 

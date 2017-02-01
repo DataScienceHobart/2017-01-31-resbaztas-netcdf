@@ -1,0 +1,72 @@
+---
+title: "Installing and navigating the R scientific stack"
+author: "Michael Sumner"
+date: "2/2/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# What is a software "stack"? 
+
+The set of software tools you'll on hand and be familiar with for doing your work. 
+
+It's called a "stack", because the pile can get very high. 
+
+
+# Spatial data in R
+
+There are two widely used packages for "Spatial Data" in R. 
+
+* **sp** - map data, points, lines and polygons 
+* **raster** - grid data, images
+
+Both packages rely on many other sotware libraries and tools. 
+
+R packages: 
+
+* **rgdal** - provides access to spatial data formats
+* **ncdf4** - the NetCDF library for R
+
+External libraries: 
+
+* GDAL - many map and raster formats
+* NetCDF - access to the NetCDF format
+* PROJ.4 - map projections
+* C++ - this is a way of writing fast, low-level code
+* ...
+
+
+These external libraries are used in other "stacks", there's a lot of overlap in the tools used in Python, Matlab, QGIS, ArcGIS, GMT, ...
+
+# There are other stacks
+
+* **Bioconductor** provides tools for the analysis and comprehension of high-throughput genomic data https://www.bioconductor.org/
+* At **rOpenSci** we are creating packages that allow access to data repositories through the R https://ropensci.org/
+* R-Spatial is an emerging community effort for **modern R spatial tools**   https://github.com/r-spatial
+
+There are emerging easy-to-use tools: 
+
+https://rstudio.github.io/leaflet/
+
+
+
+# How do I install the R stack? 
+
+* Install R first
+
+R Project
+
+And then ..
+
+
+Depends on the packages you need. 
+
+
+```R
+install.packages("...")
+
+```
